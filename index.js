@@ -209,11 +209,11 @@ Practice accessing data above by console.log-ing following items:
 
 //(1) Name of the first artist (0th index) in the array
 
-console.log(artists[0].name);
+console.log(artists[0]['name']);
 
 
 //(2) Bio of the third artist (2nd index) in the array 
-console.log(artists[3].bio);
+console.log(artists[2]['bio']);
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 2 (not auto tested): 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
@@ -232,12 +232,12 @@ Use getArtistByIndex to do the following:
 
 🌟 EXAMPLE: if getArtistByIndex is invoked with the artists array and the number 0, it will return `the artist at index 0 is Amedeo Modigliani` */
 
-function getArtistByIndex(array,number) {
+function getArtistByIndex(artists,number) {
 
- return `the artist at index ${number} is ${'Amedeo Modigliani'}`;
+ return `the artist at index ${number} is ${artists[number]['name']}`;
  
 }
-console.log(getArtistByIndex(artists,0));
+console.log(getArtistByIndex(artists,4));
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 4: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
@@ -248,19 +248,18 @@ Use listOfNames to do the following:
 🌟 EXAMPLE of return: ["Amedeo Modigliani", "Vasiliy Kandinskiy", "Diego Rivera"....]
 */
 
-function listOfNames(array) {
+function listOfNames(artists) {
+  const arr =[];
   //create new array that is a copy
-   const array1 = [...array]
+   const array1 = [...artists]
    //loop over the new array
-  for(let key in array1){
+  for(let i = 0; i < array1.length;i++){
+  array1[i]['id'] = array1[i]['name']
+  arr.push(array1[i]['name'])
+  }
     //update each id to equal just the names 
-   
-   
-      
-    
+  return arr;
    }
-  
- }
  console.log(listOfNames(artists))
 
 
@@ -326,24 +325,24 @@ Use lotsOfArt to do the following:
 🌟 EXAMPLE: lotsOfArt(artists) will return ["Amedeo Modigliani", "Rene Magritte", ... "Albrecht Dürer"]
 */
 
-function lotsOfArt(arr) {
+function lotsOfArt(artists) {
   
+  let numberPaintings = [];
+    
+  for(let i = 0;i < artists.length; i++){
+   
+    if(artists[i]['paintings'] >=100){
 
-  for(let i = 0; i < arr.length;i++){
-  
-    if(arr[i].paintings < 100){
-      arr.push(arr[i])
+     numberPaintings.push(artists[i]['name']);
     }
- 
+   
+    
   }
+
+  return numberPaintings;
   
  }
- 
-
-
-
-
-console.log(lotsOfArt(artists))
+ console.log(lotsOfArt(artists))
 
 
 
@@ -375,21 +374,19 @@ Use artistByCountry to do the following:
 🌟 EXAMPLE: Invoking artistByCountry(artists, 'Spanish') will return: [ 'Salvador Dali', 'Pablo Picasso', 'Francisco Goya']
 */
 
-function artistByCountry(array,string){
-  for(let i = 0; i < array.length;i++){
-    
-    if(array[i].nationality){
-      return array[i].name;
+function artistByCountry(artists,nationality){
+ const arr = [];
+  for(let i = 0; i < artists.length;i++){
+    if(artists[i]['nationality'].split(',').length < 2){
+      if(artists[i]['nationality'].includes(nationality)){
+        arr.push(artists[i]['name'])
+  
+      }  
     }
-      
-    }
+       
+  }
   
-  
-      
-    
-   
-  
-
+  return arr;
 }
 console.log(artistByCountry(artists,'Spanish'));
 
